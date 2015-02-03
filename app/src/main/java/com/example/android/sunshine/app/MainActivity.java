@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,40 +38,18 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new ForecastFragment())
                     .commit();
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class ForecastFragment extends Fragment {
 
-        public ForecastFragmen() {
+        public ForecastFragment() {
         }
 
         @Override
@@ -90,16 +69,14 @@ public class MainActivity extends ActionBarActivity {
              List <String> weekForecast=new ArrayList<String>(
                      Arrays.asList(forecastArray));
 
-            mForecastAdapter = new ArrayAdapter<String>(
+            ArrayAdapter<String>mForecastAdapter = new ArrayAdapter<String>(
                     getActivity(),
                     R.layout.list_item_forecast,
-                    R.id.list_item_forecast_textview,
                     weekForecast);
 
             ListView listView= (ListView)rootView.findViewById(
                     R.id.listview_forecast);
             listView.setAdapter(mForecastAdapter);
-            return rootView;
             // These two need to be declared outside the try/catch
 // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
@@ -110,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
 
             try {
                 // Construct the URL for the OpenWeatherMap query
-                // Possible parameters are avaiable at OWM's forecast API page, at
+                // Possible parameters are available at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
                 URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
 
@@ -143,7 +120,7 @@ public class MainActivity extends ActionBarActivity {
                 forecastJsonStr = buffer.toString();
             } catch (IOException e) {
                 Log.e("PlaceholderFragment", "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
+                // If the code didn't successfully get the weather data, there's no point in attempting
                 // to parse it.
                 forecastJsonStr = null;
             } finally{
@@ -158,10 +135,9 @@ public class MainActivity extends ActionBarActivity {
                     }
                 }
             }
+            return rootView;
 
 
 
-
-        }
     }
-}
+}}
