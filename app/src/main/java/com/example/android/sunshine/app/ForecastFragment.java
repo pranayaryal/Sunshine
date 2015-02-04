@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by psarya01 on 2/3/2015.
  */
-public class ForecastFragment {
+public class ForecastFragment extends Fragment {
 
     public ForecastFragment() {
     }
